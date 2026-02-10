@@ -872,7 +872,7 @@
     const SETTINGS = {
       // ✅ сюда вставишь URL туннеля, который даст cloudflared
       // пример: "https://wild-fox-123.trycloudflare.com"
-      apiBase: "https://PASTE_YOUR_TUNNEL_HERE",
+      apiBase: "",
 
       defaultName: "Ерке",
       inviteLines: [
@@ -930,6 +930,43 @@
      *  Helpers
      **********************/
     const $ = (id) => document.getElementById(id);
+    function getApiFromQuery(){
+  const params = new URLSearchParams(location.search);
+  const api = params.get("api");
+  if (!api) return "";
+  try { return decodeURIComponent(api).trim(); } catch { return api.trim(); }
+}
+
+function getApiBase(){
+  // 1) api из ссылки ?api=...
+  const q = getApiFromQuery();
+  if (q) {
+    localStorage.setItem("val_apiBase", q);
+    return q;
+  }
+  // 2) из localStorage (сохраняется после первого открытия)
+  const saved = localStorage.getItem("val_apiBase");
+  if (saved) return saved;
+
+  // 3) из SETTINGS (если ты всё-таки захочешь хардкод)
+  return (SETTINGS.apiBase || "").trim();
+}
+
+async function logEvent(event, extra = "") {
+  try {
+    const base = getApiBase();
+    if (!base) return;
+
+    const name = getNameFromQuery();
+    await fetch(`${base}/api/events`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ event, name, extra })
+    });
+  } catch (e) {
+    // игнор — фронт работает даже если бэк выключен
+  }
+}
 
     // ✅ логирование в бэк (работает только если бэк включён + туннель живой)
     async function logEvent(event, extra = "") {
