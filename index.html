@@ -567,185 +567,6 @@
     }
     .music-panel.hidden{ display:none; }
     .music-panel iframe{ display:block; width:100%; height:180px; border:0; }
-    .intro{
-  position: fixed;
-  inset: 0;
-  z-index: 250000;
-  background: #fff;
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-  transition: opacity 420ms ease, background 420ms ease;
-}
-
-.intro.gone{
-  opacity: 0;
-  background: rgba(255,255,255,0);
-  pointer-events: none;
-}
-
-.env{
-  position: relative;
-  width: min(520px, 92vw);
-  height: min(340px, 60vw);
-  max-height: 380px;
-  transform: translateY(0) scale(1);
-  transition: transform 600ms cubic-bezier(.2,.85,.15,1);
-  perspective: 1100px;
-}
-
-.env-back{
-  position:absolute;
-  inset: 0;
-  border-radius: 22px;
-  background:
-    radial-gradient(80% 90% at 30% 25%, rgba(255,95,162,.08), transparent 55%),
-    radial-gradient(70% 90% at 80% 40%, rgba(255,175,90,.10), transparent 60%),
-    linear-gradient(180deg, #ffffff, #fbfbfd);
-  border: 1px solid rgba(0,0,0,.08);
-  box-shadow: 0 26px 80px rgba(0,0,0,.12);
-}
-
-/* Base flaps */
-.env-flap{
-  position:absolute;
-  inset: 0;
-  border-radius: 22px;
-  background: rgba(255,255,255,.92);
-  border: 1px solid rgba(0,0,0,.08);
-  box-shadow: 0 18px 55px rgba(0,0,0,.10);
-}
-
-/* Left triangle */
-.env-left{
-  clip-path: polygon(0 0, 56% 50%, 0 100%);
-  transform-origin: left center;
-  background: linear-gradient(135deg, rgba(255,95,162,.10), rgba(255,255,255,.95));
-}
-
-/* Right triangle */
-.env-right{
-  clip-path: polygon(100% 0, 44% 50%, 100% 100%);
-  transform-origin: right center;
-  background: linear-gradient(225deg, rgba(255,95,162,.10), rgba(255,255,255,.95));
-}
-
-/* Bottom triangle */
-.env-bottom{
-  clip-path: polygon(0 100%, 50% 52%, 100% 100%);
-  transform-origin: center bottom;
-  background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,95,162,.08));
-}
-
-/* Top flap (triangle pointing down) */
-.env-top{
-  clip-path: polygon(0 0, 100% 0, 50% 58%);
-  transform-origin: center top;
-  transform: rotateX(0deg);
-  background: linear-gradient(180deg, rgba(255,95,162,.10), rgba(255,255,255,.92));
-  box-shadow: 0 22px 55px rgba(0,0,0,.12);
-}
-
-/* Center seam (subtle) */
-.env::after{
-  content:"";
-  position:absolute;
-  left:50%;
-  top:50%;
-  width: min(520px, 92vw);
-  height: 2px;
-  transform: translate(-50%,-50%);
-  background: linear-gradient(90deg, transparent, rgba(255,95,162,.40), transparent);
-  opacity:.65;
-  pointer-events:none;
-}
-
-/* Heart seal button */
-.seal{
-  position:absolute;
-  left:50%;
-  top:52%;
-  transform: translate(-50%,-50%);
-  border: 0;
-  cursor: pointer;
-  user-select: none;
-
-  padding: 14px 18px 12px;
-  border-radius: 18px;
-
-  background: rgba(255,255,255,.96);
-  border: 1px solid rgba(0,0,0,.10);
-  box-shadow: 0 18px 60px rgba(0,0,0,.16);
-
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap: 6px;
-
-  transition: transform 220ms ease, opacity 220ms ease;
-  z-index: 3;
-}
-
-.seal:hover{ transform: translate(-50%,-50%) scale(1.02); }
-.seal:active{ transform: translate(-50%,-50%) scale(.99); }
-
-.seal-heart{
-  font-size: 26px;
-  line-height: 1;
-  filter: drop-shadow(0 10px 18px rgba(255,95,162,.20));
-}
-
-.seal-text{
-  font: 900 20px/1 "Nunito", system-ui, sans-serif;
-  color:#3a2c34;
-}
-
-.seal-sub{
-  font: 800 13px/1.2 "Nunito", system-ui, sans-serif;
-  color: rgba(58,44,52,.65);
-}
-
-/* OPEN animation */
-.intro.open .env{
-  transform: translateY(-6px) scale(1.02);
-}
-
-.intro.open .env-top{
-  transform: rotateX(175deg);
-  box-shadow: none;
-}
-
-.intro.open .env-left{
-  transform: rotateY(-38deg) translateX(-6px);
-  opacity: .95;
-}
-
-.intro.open .env-right{
-  transform: rotateY(38deg) translateX(6px);
-  opacity: .95;
-}
-
-.intro.open .env-bottom{
-  transform: rotateX(-18deg) translateY(8px);
-  opacity: .95;
-}
-
-.intro.open .seal{
-  opacity: 0;
-  transform: translate(-50%,-30%) scale(.92);
-  pointer-events:none;
-}
-
-/* small sparkle under seal */
-.seal::after{
-  content:"";
-  position:absolute;
-  inset:-10px;
-  border-radius: 20px;
-  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.75), transparent 60%);
-  opacity:.55;
-  pointer-events:none;
-}
 
     @media (max-width: 420px){
       .btn{ width:100%; justify-content:center; }
@@ -756,31 +577,12 @@
 </head>
 
 <body>
-
-  <!-- INTRO (white envelope screen) -->
-  <div id="intro" class="intro" aria-hidden="false">
-  <div class="env" id="env">
-    <div class="env-back"></div>
-
-    <div class="env-flap env-left"></div>
-    <div class="env-flap env-right"></div>
-    <div class="env-flap env-bottom"></div>
-    <div class="env-flap env-top"></div>
-
-    <button id="introSeal" class="seal" type="button" aria-label="Открыть конверт">
-      <span class="seal-heart">💖</span>
-      <span class="seal-text">Готова?</span>
-      <span class="seal-sub">нажми, чтобы открыть</span>
-    </button>
-  </div>
-</div>
-
   <audio id="bgm" preload="auto" loop playsinline>
     <source src="joji.mp3" type="audio/mpeg">
   </audio>
   <audio id="hackBgm" preload="auto" loop playsinline>
-  <source src="hacker.mp3" type="audio/mpeg">
-</audio>
+    <source src="hacker.mp3" type="audio/mpeg">
+  </audio>
 
   <div id="musicPanel" class="music-panel hidden" aria-hidden="true"></div>
 
@@ -1003,7 +805,7 @@
       else if (tries >= SETTINGS.funnyModeAfter) hint.textContent = "Ладно-ладно… может просто «Да»? 🥺💘";
       else hint.textContent = "";
 
-      if (tries === 0) miniText.textContent = "Можно просто нажать «Нет»… я не обижусь 😄";
+      if (tries === 0) miniText.textContent = "Можно просто нажать «Да»… я не обижусь 😄";
       else if (tries <= 2) miniText.textContent = "Я виделa! Палец тянулся к «Да» 😳💞";
       else if (tries <= 5) miniText.textContent = "Ладно-ладно… может просто «Да»? 🥺💘";
       else miniText.textContent = "Окей, это уже спорт… но я верю в «Да» 💖";
@@ -1018,7 +820,8 @@
      **********************/
     function spawnBackgroundHearts(count=22, broken=false){
       const bg = $("bg");
-      bg.innerHTML = "";
+      bg.textContent = "";
+
       const emojis = broken
         ? ["💔","🖤","💔","💔","🩶","💔"]
         : [
@@ -1026,6 +829,8 @@
           "🤍","🖤","🤎","❤️‍🔥","❤️‍🩹","💟","❣️","💌","💐","🌸","🌷","🫶","✨","⭐","🌟",
           "🎀","🧸","🍓","🍒","🍭","🍫","🫧","🌙","☁️","🕊️","🥰","😘","😚"
         ];
+
+      const frag = document.createDocumentFragment();
 
       for(let i=0;i<count;i++){
         const el = document.createElement("div");
@@ -1045,8 +850,10 @@
         el.style.setProperty("--x", drift);
         el.style.animationDelay = (-Math.random()*duration) + "s";
 
-        bg.appendChild(el);
+        frag.appendChild(el);
       }
+
+      bg.appendChild(frag);
     }
 
     /**********************
@@ -1087,7 +894,7 @@
       if (animId) cancelAnimationFrame(animId);
       animId = null;
       particles = [];
-      ctx.clearRect(0,0,canvas.width,canvas.height);
+      ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
     }
 
     function goHome(){
@@ -1205,7 +1012,6 @@
       yesScale = Math.min(yesScale * step, SETTINGS.yesScaleMax);
       yesBtn.style.transform = `scale(${yesScale.toFixed(3)})`;
 
-      // меняем надпись на YES (но клик по ней всегда ведёт в финал)
       const label = SETTINGS.yesLabels[clamp(tries, 0, SETTINGS.yesLabels.length - 1)];
       yesBtn.textContent = label;
 
@@ -1291,8 +1097,7 @@
       if (hackRunning) return;
       hackRunning = true;
       startHackAudio();
-      // блокируем только NO (как и раньше), YES можно оставить активной,
-      // но overlay всё равно перекрывает экран — поэтому STOP возвращает домой.
+
       noBtn.style.pointerEvents = "none";
       noBtn.style.zIndex = "99999";
       noBtn.style.display = "inline-flex";
@@ -1382,7 +1187,6 @@
       hackWindows.appendChild(w);
     }
 
-    // ✅ STOP: вернуть на главную + сброс YES
     hackStopBtn.addEventListener("click", () => {
       stopHackPrank();
       goHome();
@@ -1396,7 +1200,6 @@
 
       if (screenFinal.style.display === "block") return;
 
-      // если вдруг hack запущен — сначала закрываем, потом финал
       if (hackRunning) stopHackPrank();
 
       fixNoButtonToViewportOnce();
@@ -1594,7 +1397,7 @@
 
       function frame(t){
         const elapsed = t - start;
-        ctx.clearRect(0,0,canvas.width,canvas.height);
+        ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
 
         particles = particles.filter(p => p.life > 0);
 
@@ -1611,7 +1414,7 @@
         if (elapsed < ms || particles.length > 0) {
           animId = requestAnimationFrame(frame);
         } else {
-          ctx.clearRect(0,0,canvas.width,canvas.height);
+          ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
         }
       }
       animId = requestAnimationFrame(frame);
@@ -1621,132 +1424,40 @@
      *  Music
      **********************/
     const bgm = document.getElementById("bgm");
-    const musicBtn = document.getElementById("musicBtn");
-    // INTRO open + start music
     const hackBgm = document.getElementById("hackBgm");
+    const musicBtn = document.getElementById("musicBtn");
 
-// запомним состояние обычной музыки, чтобы продолжить после протокола
-let savedBgmTime = 0;
-let savedBgmWasPlaying = false;
-
-async function startHackAudio(){
-  // если пользователь выключил музыку — не включаем “хакерское”
-  if (!musicOn) return;
-
-  // этот запуск почти всегда идет из user gesture (клик по NO) — можно смело “разлочить”
-  soundUnlocked = true;
-
-  // стоп обычной
-  try{
-    savedBgmTime = bgm.currentTime || 0;
-    savedBgmWasPlaying = !bgm.paused && !bgm.ended;
-    bgm.pause();
-  } catch(e) {}
-
-  // старт хакерской
-  try{
-    hackBgm.currentTime = 0;
-    hackBgm.muted = false;
-    hackBgm.volume = 0.35;
-    await hackBgm.play();
-  } catch(e) {}
-
-  setMusicBtnUI();
-}
-
-async function stopHackAudio(){
-  // стоп хакерской
-  try{
-    hackBgm.pause();
-    hackBgm.currentTime = 0;
-  } catch(e) {}
-
-  // вернуть обычную (продолжить)
-  if (!musicOn) { setMusicBtnUI(); return; }
-
-  try{
-    bgm.muted = false;
-    bgm.volume = 0.25;
-
-    // продолжим с места, где остановили
-    if (!Number.isNaN(savedBgmTime)) {
-      bgm.currentTime = savedBgmTime;
-    }
-
-    // продолжать только если она реально играла до протокола
-    if (savedBgmWasPlaying || soundUnlocked) {
-      await bgm.play();
-    }
-  } catch(e) {}
-
-  setMusicBtnUI();
-}
-const intro = document.getElementById("intro");
-const introSeal = document.getElementById("introSeal");
-
-async function startMusicFromIntro(){
-  const a = document.getElementById("bgm");
-  if (!a) return;
-
-  // если у тебя есть флаги из твоего music-кода — аккуратно выставим
-  if (typeof musicOn !== "undefined") musicOn = true;
-  if (typeof soundUnlocked !== "undefined") soundUnlocked = true;
-
-  try{
-    a.muted = false;
-    a.volume = 0.25;
-    await a.play();
-  } catch (e) {
-    // если браузер всё равно заблокировал — обычно это редкость, но интро-клик должен разрешить
-  }
-
-  if (typeof setMusicBtnUI === "function") setMusicBtnUI();
-}
-
-function openIntro(){
-  if (!intro) return;
-
-  // чтобы не было "белого экрана после" — мы просто убираем overlay
-  intro.classList.add("open");
-
-  // через чуть-чуть плавно "растворяем" overlay и снимаем блокировку кликов
-  setTimeout(() => {
-    intro.classList.add("gone");
-    intro.setAttribute("aria-hidden", "true");
-  }, 900);
-
-  // полностью удаляем из DOM
-  setTimeout(() => {
-    intro.remove();
-  }, 1400);
-}
-
-if (intro && introSeal) {
-  // можно кликать по печати
-  introSeal.addEventListener("click", async () => {
-    await startMusicFromIntro();
-    openIntro();
-  }, { once: true });
-
-  // и по самому конверту (на случай промаха)
-  document.getElementById("env")?.addEventListener("click", async () => {
-    await startMusicFromIntro();
-    openIntro();
-  }, { once: true });
-}
     let musicOn = true;
     let soundUnlocked = false;
 
+    // запомним состояние обычной музыки, чтобы продолжить после протокола
+    let savedBgmTime = 0;
+    let savedBgmWasPlaying = false;
+
     function setMusicBtnUI(){
-      musicBtn.textContent = musicOn ? "🔊 Music" : "🔈 Music";
+      // если музыка включена, но звук ещё не разлочен — показываем "тихий" значок
+      musicBtn.textContent = musicOn
+        ? (soundUnlocked ? "🔊 Music" : "🔈 Music")
+        : "🔈 Music";
     }
 
     async function tryAutoplay(){
+      if (!musicOn) { setMusicBtnUI(); return; }
+
+      // 1) пробуем сразу со звуком (если браузер разрешит)
       try{
         bgm.volume = 0.25;
-        bgm.muted = true;
+        bgm.muted = false;
         await bgm.play();
-      } catch (e) {} finally {
+        soundUnlocked = true;
+      } catch (e) {
+        // 2) fallback: запускаем беззвучно, а звук разлочится при первом тапе/клике
+        try{
+          bgm.volume = 0.25;
+          bgm.muted = true;
+          await bgm.play();
+        } catch (e2) {}
+      } finally {
         setMusicBtnUI();
       }
     }
@@ -1754,18 +1465,62 @@ if (intro && introSeal) {
     async function unlockSoundOnce(){
       if (soundUnlocked) return;
       soundUnlocked = true;
-      if (!musicOn) return;
+      if (!musicOn) { setMusicBtnUI(); return; }
 
       try{
         bgm.muted = false;
         bgm.volume = 0.25;
         await bgm.play();
       } catch (e) {}
+      setMusicBtnUI();
     }
 
     // алиас, чтобы всё старое работало без ошибок
     function unlockAudioOnce(){
       unlockSoundOnce();
+    }
+
+    async function startHackAudio(){
+      if (!musicOn) return;
+
+      soundUnlocked = true;
+
+      try{
+        savedBgmTime = bgm.currentTime || 0;
+        savedBgmWasPlaying = !bgm.paused && !bgm.ended;
+        bgm.pause();
+      } catch(e) {}
+
+      try{
+        hackBgm.currentTime = 0;
+        hackBgm.muted = false;
+        hackBgm.volume = 0.35;
+        await hackBgm.play();
+      } catch(e) {}
+
+      setMusicBtnUI();
+    }
+
+    async function stopHackAudio(){
+      try{
+        hackBgm.pause();
+        hackBgm.currentTime = 0;
+      } catch(e) {}
+
+      if (!musicOn) { setMusicBtnUI(); return; }
+
+      try{
+        bgm.muted = false;
+        bgm.volume = 0.25;
+        if (!Number.isNaN(savedBgmTime)) {
+          bgm.currentTime = savedBgmTime;
+        }
+        if (savedBgmWasPlaying || soundUnlocked) {
+          await bgm.play();
+        }
+      } catch(e) {}
+
+      setMusicBtnUI();
     }
 
     window.addEventListener("load", tryAutoplay);
@@ -1781,7 +1536,8 @@ if (intro && introSeal) {
           await bgm.play();
         } catch (e) {}
       } else {
-        bgm.pause();
+        try { bgm.pause(); } catch(e) {}
+        try { hackBgm.pause(); } catch(e) {}
       }
 
       setMusicBtnUI();
@@ -1802,6 +1558,7 @@ if (intro && introSeal) {
       updateMicrocopy();
 
       resizeCanvas();
+      setMusicBtnUI();
     })();
   </script>
 </body>
